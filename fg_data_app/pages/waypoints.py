@@ -14,12 +14,11 @@ class WaypointsPage(webapp.RequestHandler):
 	template_vars['app'] = {'title': 'FG-Data-Developement version', 'version': '0.1-Alpha'}
 	template_vars['files'] = ['waypoints']
 	template_vars['file_types'] = ['json', 'yaml']
-	path = os.path.join(os.path.dirname(__file__), 'templates/index.html')
+	path = os.path.join(os.path.dirname(__file__), 'templates/waypoints.html')
 
 	self.response.out.write(template.render(path, template_vars))
 
-application = webapp.WSGIApplication(
-                                     [('/waypoints', WaypointsPage),],
+application = webapp.WSGIApplication([('/waypoints', WaypointsPage),],
                                      debug=True)
 
 def main():

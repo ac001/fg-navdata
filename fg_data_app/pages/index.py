@@ -7,7 +7,7 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.ext.webapp import template
 
 
-class MainPage(webapp.RequestHandler):
+class IndexPage(webapp.RequestHandler):
   def get(self):
 
 	template_vars = {}
@@ -18,10 +18,7 @@ class MainPage(webapp.RequestHandler):
 
 	self.response.out.write(template.render(path, template_vars))
 
-application = webapp.WSGIApplication(
-                                     [
-										],
-                                     debug=True)
+application = webapp.WSGIApplication(('/', IndexPage),], debug=True)
 
 def main():
   run_wsgi_app(application)
