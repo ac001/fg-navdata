@@ -1,0 +1,60 @@
+{% extends "container.html" %}
+
+
+{% block content %}
+
+
+
+
+<h2>Under Development</h2>
+<p>The basic idea under development is to create an online "cache" of navdata and the like</p>
+<p>The project is currently at <a target="_blank_" href="http://github.com/ac001/fg-navdata/tree/master">http://github.com/ac001/fg-navdata/tree/master</a></p>
+
+<h2>The Goal</h2>
+
+INDEXXXXXXXx
+<ul>
+<li>An online service where data can be constantly pulled and is updated</li>
+<li>End users wont have to parse out files or create database and import etc, it can be pulled from the Google cloud</li>
+<li>Data available in different formats, eg json, xml, yaml, csv</li>
+</ul>
+
+<h2>Files</h2>
+
+<table border="1">
+<tr>
+	<th>File</th>
+	{% for ft in file_types %}
+		<th>{{ ft }}</a><th>
+	{% endfor %}
+</tr>
+{% for f in files %}
+<tr>
+	<td>{{ f }}</td>
+	{% for ft in settings.file_types %}
+		<td><a href ="{{ ft }}/{{ f }}.{{ ft }}">{{ f}}.{{ ft }}</a><td>
+	{% endfor %}
+</tr>
+{% endfor %}
+
+
+</table>
+
+
+<h3>The application so far</h3>
+<p>The first goal is to create a format of all the data as static files so these can be linked and are here online so wget, or json call</p>
+<ul>
+<li>Download the tarball from Robin</li>
+
+</ul>
+
+
+{% endblock content %}
+
+
+{% block right %}
+
+<a href="http://shell.appspot.com/">shell.appspot.com</a>
+http://pyyaml.org/wiki/PyYAML
+
+{% endblock right %}
