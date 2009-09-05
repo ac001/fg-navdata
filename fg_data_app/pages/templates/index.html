@@ -1,9 +1,10 @@
+{% extends "container.html" %}
 
-<html>
+
+{% block content %}
 
 
-<body>
-<h1>x-Plane / Flight Gear  - static data sources and feed</h1>
+
 
 <h2>Under Development</h2>
 <p>The basic idea under development is to create an online "cache" of navdata and the like</p>
@@ -30,7 +31,7 @@ INDEXXXXXXXx
 {% for f in files %}
 <tr>
 	<td>{{ f }}</td>
-	{% for ft in file_types %}
+	{% for ft in settings.file_types %}
 		<td><a href ="{{ ft }}/{{ f }}.{{ ft }}">{{ f}}.{{ ft }}</a><td>
 	{% endfor %}
 </tr>
@@ -48,10 +49,4 @@ INDEXXXXXXXx
 </ul>
 
 
-<pre>
-
-</pre>
-
-</body>
-
-</html>
+{% endblock content %}

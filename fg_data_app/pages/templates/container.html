@@ -1,0 +1,20 @@
+<html>
+
+<body>
+<h1>x-Plane / Flight Gear  - static data sources and feed</h1>
+
+<ul>
+{% for pg in settings.pages %}
+<li><a href="{{ pg.0 }}">{{ pg.1 }}</a></li>
+{% endfor %}
+</ul>
+
+
+{% block content %}
+NOT HANDLED
+
+{% endblock content %}
+
+</body>
+
+</html>
