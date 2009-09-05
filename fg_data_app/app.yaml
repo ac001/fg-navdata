@@ -1,0 +1,21 @@
+application: fg-data
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /yaml
+  static_dir: yaml
+  mime_type: text/plain
+
+- url: /json
+  static_dir: json
+  mime_type: text/plain
+
+- url: /xml
+  static_dir: xml
+  mime_type: text/plain
+
+- url: /.*
+  script: index.py
+

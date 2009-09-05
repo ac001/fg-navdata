@@ -1,0 +1,26 @@
+What is stored in each of the data files?
+
+The X-Plane airport and navigation data is stored in a set of text files.  The file and/or folder names have changed with the release of X-Plane 9.0, but the scope of each file remains unchanged:
+
+    *
+
+Airports (including heliports and seaplane bases) are stored in the apt.dat file. 
+ This includes basic airport and boundary information, runways (including runway lighting, approach lighting and VASI/PAPIs), taxiways, taxiway markings and lighting, default start-up locations and some airport 'furniture' (windsocks, taxiway signs, etc.). 
+ This file does not include ILS data for an airport.
+    *
+
+      Navigation aids are stored in the earth_nav.dat file (nav.dat prior to X-Plane 9.0). 
+ This file includes the location, ID, name frequency and range of global NDBs, VOR/VORTACs, 
+DMEs, ILS components (localizers, glideslopes, marker beacons and associated DMEs).
+    *
+
+      Fixes (intersections) are stored in the earth_fix.dat file (fix.dat prior to X-Plane 9.0).
+    *
+
+      Airways are stored in the earth_awy.dat file (awy.dat prior to X-Plane 9.0).
+    *
+
+      Astronomical data (star positions) are stored in the earth_astro.dat file (astro.dat prior to X-Plane 9.0).
+
+Detailed definitions of the format of each file can be found on the Designers page.  
+Similar files are also maintained for the planet Mars, in which case any 'earth_' prefix in the file name is replaced with 'mars_'.
