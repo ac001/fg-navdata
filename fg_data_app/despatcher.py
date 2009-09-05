@@ -5,10 +5,11 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 
 from pages.IndexPage import IndexPage
 from pages.WaypointsPage import WaypointsPage
-
+from pages.FooPage import FooPage
 
 application = webapp.WSGIApplication([	('/', IndexPage),
-										('/waypoints', WaypointsPage)
+										('/waypoints', WaypointsPage),
+										('/foo', FooPage),
 									 ], debug=True)
 
 def main():

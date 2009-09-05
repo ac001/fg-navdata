@@ -10,4 +10,6 @@ app = {'title': "Flight Gear / xPlane - data cloud (experimental)", 'version': o
 
 root_path = os.path.abspath(os.path.dirname(__file__) + "/../")
 
+templates_path = os.path.join(os.path.dirname(__file__) + '/templates')
+
 links = ['https://appengine.google.com/']

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./google_appengine/appcfg.py update fg_data_app/
+python2.5 ./google_appengine/appcfg.py update --verbose --noisy fg_data_app/

@@ -1,4 +1,4 @@
-waypoints:
+waypoints.all:
   description: All waypoints with lat lng
   snippet: >
     {"info":" -- information and copyright string ---"
