@@ -1,0 +1,21 @@
+waypoints:
+  description: All waypoints with lat lng
+  snippet: >
+    {"info":" -- information and copyright string ---"
+      "waypoints":[
+        {"waypoint": "00MKK", "lat": 22.528056, "lng": -156.170961},
+        {"waypoint": "00UPP", "lat": 20.566668, "lng": -154.125000},
+        {"waypoint": "03MCT", "lat": 55.136667, "lng": -7.191389}
+      ]
+    }
+
+waypoints.index:
+  description: Waypoint idents only, useful for autocomplete
+  snippet: >
+    {"info":" -- information and copyright string ---"
+      "waypoints":[
+        "00MKK",
+        "00UPP",
+        "03MCT"
+      ]
+    }

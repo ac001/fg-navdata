@@ -1,4 +1,4 @@
-application: fg-data
+application: fg-navdata
 version: 1
 runtime: python
 api_version: 1
@@ -8,13 +8,13 @@ handlers:
   static_dir: yaml
   mime_type: text/plain
 
-- url: /json
-  static_dir: json
+- url: /js
+  static_dir: js
   mime_type: text/plain
 
-- url: /xml
-  static_dir: xml
-  mime_type: text/plain
+- url: /css
+  static_dir: css
+  mime_type: text/css
 
 - url: /.*
   script: despatcher.py
