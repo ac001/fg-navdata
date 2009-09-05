@@ -19,4 +19,12 @@ class AirportLoader(bulkloader.Loader):
 								('atc', bool)
                                ])
 
+class WaypointLoader(bulkloader.Loader):
+
+	def __init__(self):
+		bulkloader.Loader.__init__(	self, 'Waypint', [
+								('ident', str),
+                                ('lat', str),
+                                ('lng', str)
+                               ])
 loaders = [AirportLoader]
