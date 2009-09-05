@@ -16,6 +16,9 @@ handlers:
   static_dir: xml
   mime_type: text/plain
 
+- url: /waypoints
+  script: pages/waypoints.py
+
 - url: /.*
-  script: index.py
+  script: pages/index.py
 

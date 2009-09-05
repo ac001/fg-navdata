@@ -1,23 +1,11 @@
-This is attempt to host the FlightGear navigation data as a service on the Google App Engine/Cloud.
+This is attempt to host the 
+FlightGear x-plane navigation data 
+as a service on the Google App Engine/Cloud.
 
 It is experimental.
 
-Brief Idea.
-
-Take the flightgear data
-Import it and process it
-Uplaod to google app engine
-
-Pull the data to various sources
-eg ajax, xml, yaml, csv, tsv, etc
-
-Have an Api to search by region, country etc.
-
-
-========================================
-instructions
-========================================
-
-Run setup.sh to extract unpack nav tarball
-
+==================================
+More information at 
+==================================
+http://fg-data.appspot.com
 

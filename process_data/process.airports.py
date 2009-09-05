@@ -5,7 +5,7 @@ import sys
 import csv
 import yaml
 
-in_file_name = "Resources/default scenery/default apt dat/Earth nav data/apt.dat"
+in_file_name = "../temp/Resources/default scenery/default apt dat/Earth nav data/apt.dat"
 airports_csv = "../prepared_data/airports.csv"
 airports_yaml = "../fg_data_app/yaml/airports.yaml"
 
@@ -18,7 +18,9 @@ class Airport(db.Model):
 	elevation = db.IntegerProperty()
 	atc = db.BooleanProperty()
 """
-class ProcessFile:
+
+
+class ProcessAirports:
 
 	col_map = {'key':0, 'elevation':1, 'atc':2, '_':3, 'icao':4, 'name':5}
 

@@ -2,20 +2,19 @@
 
 """Processes the apt - airports file"""
 import sys
-#import csv
+
 import yaml
-import json
 
-in_file_name = "Resources/default data/earth_fix.dat"
 
+from ProcessCore import ProcessCore
 
 """
-I
+
+ 55.136667 -007.191389 03MCTI
 600 Version - data cycle 2009.09, build 20091055, metadata FixXP700.  Copyright � 2009, Robin A. Peel (robin@xsquawkbox.net).   This data is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.  This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.  You should have received a copy of the GNU General Public License along with this program ("AptNavGNULicence.txt"); if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307, USA.
 
  22.528056 -156.170961 00MKK
  20.566668 -154.125000 00UPP
- 55.136667 -007.191389 03MCT
  25.610000  030.635278 03SML
  73.147778 -068.683056 04THT
  47.733334  008.283334 06TRA
@@ -24,86 +23,96 @@ I
 
 
 
-class ProcessWaypoints:
 
-	#col_map = {'key':0, 'elevation':1, 'atc':2, '_':3, 'icao':4, 'name':5}
+class ProcessWaypoints(ProcessCore):
 
-	def __init__(self, in_file_name):
-		self.in_file = open(in_file_name)
-		
-
-	def run(self):
-		#self.airports_csv = csv.writer(open(airports_csv, 'w'), quoting=csv.QUOTE_ALL)
-		
-		# skip first three lines
-		self.read_line()
-		info = self.read_line()
-		self.read_line()
-		#self.read_line()
-
-		## Loop lines to read data
-		data_dic = {}
+	def __init__(self, in_file):
+		ProcessCore.__init__(self, in_file)
+	
 		c = 0
+		data_dic = {'info': self.source_info}
+		yam = {}
+		js = {}
+		keys = []
+		data_dic['waypoints'] =[]
+
+		
 		while 1:
 			line = self.read_line()
-			#print c, line
-			#print line
 			if line == -1:
 				break
 			
 			if line != None:
 				cols = line.split()
-				waypoint = str(cols[2])
-				data_dic[waypoint] = {'waypoint': waypoint, 'lat': float(cols[0]), 'lng': float(cols[1])}
+				#temp_dic = {'lat': float(cols[0]), 'lng': float(cols[1])}
+				#print json.dumps( temp_dic )
+				#data_dic['waypoints'][str(cols[2])] = temp_dic
+				
+				
+				if  DO_ALL or len(yam) < 10:
+					keys.append(cols[2])
+					lat = "%.6f" % float(cols[0])
+					lng = "%.6f" % float(cols[1])
+					yam[cols[2]] = "{waypoint: '%s', lat: %s, lng: %s}" % (cols[2], lat, lng)
+					js[cols[2]] = '{"waypoint": "%s", "lat": %s, "lng": %s}' % (cols[2], lat, lng) #, cols[0],cols[1])
+					#jso[cols[2]] = "{waypoint: '%s', lat: %s, lng: %s}" % (cols[2], cols[0],cols[1])
+					#data_dic['waypoints'].append( {'way': cols[2],'lat': cols[0], 'lng': cols[1]} )
 
 		self.close()
-
-		yaml_file_name = "../fg_data_app/yaml/waypoints.yaml"
-		json_file_name = "../fg_data_app/json/waypoints.json"
-		self.yaml_file = open(yaml_file_name, 'w')
-		self.json_file = open(json_file_name, 'w')
-
-		print "writing files"
-		sorted_keys = sorted(data_dic.keys())		
-		c == 0
-		for ki in sorted_keys:
-			yaml.dump(data_dic[ki], self.yaml_file, width=500, indent=4)
-			self.json_file.write( "%s\n" % json.dumps(data_dic[ki]) )
-
-			if c % 1000 == 0:
-				print c,  data_dic[ki]
-			c += 1
-		self.yaml_file.close()
-		self.json_file.close()
+		#print len(yam)
 		
-		print "### done ####"
+		### Sort ########################
+		keys_sorted = sorted(keys)
+		#print keys_sorted
+		yam_sort = []
+		js_sort = []
+		for k in keys_sorted:
+			yam_sort.append( yam[k] )
+			js_sort.append( js[k] )
+			data_dic['waypoints'].append( k )
+
+		#self.write_xml(data_dic, 'waypoints')
+		#return
+
+		###############################
+		## Write Yaml
+		yam_str = self.credits('yaml') + "\n" 
+		yam_str += "waypoints:\n"
+		yam_idx_str  = yam_str
 		
+		yam_str += '\n'.join(["- %s" % i for i in yam_sort])
+		self.write_out('yaml', yam_str, 'waypoints')
 
-	def read_line(self):
-		line =  self.in_file.readline()
-		## End of file reached
-		if not line:
-			print "End of file "
-			self.close()
-			return -1
+		yam_idx_str += "\n".join(["- '%s'" % i for i in keys_sorted])
+		self.write_out('yaml', yam_idx_str, 'waypoints.index')
+
+		###############################
+		## Write Json
+		json_str = '{"info":' + self.credits('js') + ',\n'
+		json_str += '"waypoints":[\n'
+		json_idx_str  = json_str	
+	
+		json_str += ',\n'.join(["%s" % i for i in js_sort])
 		
-		line = line.strip()
+		json_str += "\n]\n}"
+		self.write_out('js', json_str, 'waypoints')
 
-		## check its not END flag = 99
-		if line == '99':
-			print "End of file flag reached"
-			self.close()
-			return -1
+		json_idx_str += ',\n'.join(['"%s"' % i for i in keys_sorted])
+		json_idx_str += "\n]\n}"
+		self.write_out('js', json_idx_str, 'waypoints.index')
 
-		## return Null if its not a text line
-		if line == '':
-			return None
-		return line
 
-	def close(self):
-		self.in_file.close()
+		#{ifo 'fooo', waypoints: [ {} }
+		#s += "\n"
+#		s += "- %s\n" % yam[k]
+		#	data_dic['waypoints'].append(yam[k])
+		
+		#self.write_yaml(data_dic, 'waypoints')
+
+		print "  done"
 
 		
+DO_ALL = len(sys.argv) == 1
+	
 
-d = ProcessWaypoints(in_file_name)
-d.run()
+d = ProcessWaypoints("../temp/Resources/default data/earth_fix.dat")
