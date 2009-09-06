@@ -9,7 +9,8 @@ class Airport(db.Model):
 	seaport = db.BooleanProperty()
 	elevation = db.IntegerProperty()
 	atc = db.BooleanProperty()
-
+	INDEX_ONLY = ['icao','name']
+	#INDEX_TITLE_FROM_PROP = 'name'
 
 
 
